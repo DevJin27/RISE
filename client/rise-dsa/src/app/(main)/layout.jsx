@@ -12,7 +12,7 @@ export default function MainLayout({ children }) {
     {
       title: "Problems",
       icon: <FileCode className="h-full w-full" />,
-      href: "/problems",
+      href: "/problemset/arrays/3",
     },
     {
       title: "Learn",
