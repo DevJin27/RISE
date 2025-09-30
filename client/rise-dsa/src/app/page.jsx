@@ -5,6 +5,8 @@ import { useRouter} from 'next/navigation'
 
 export default function LandingPage() {
   const router = useRouter();
+  const successRate = 98
+  const problems = 500
   
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white relative overflow-hidden">
@@ -309,7 +311,7 @@ export default function LandingPage() {
             transition={{ delay: 1, duration: 0.6 }}
           >
             <div className="text-center">
-              <div className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent mb-2">500+</div>
+              <div className="text-4xl font-bold bg-gradient-to-r from-blue-500 to-cyan-400 bg-clip-text text-transparent mb-2">{problems+"+"}</div>
               <div className="text-gray-500 text-sm">DSA Problems</div>
             </div>
             <div className="text-center">
@@ -317,7 +319,7 @@ export default function LandingPage() {
               <div className="text-gray-500 text-sm">AI Support</div>
             </div>
             <div className="text-center">
-              <div className="text-4xl font-bold bg-gradient-to-r from-green-500 to-emerald-400 bg-clip-text text-transparent mb-2">98%</div>
+              <div className="text-4xl font-bold bg-gradient-to-r from-green-500 to-emerald-400 bg-clip-text text-transparent mb-2">{successRate}%</div>
               <div className="text-gray-500 text-sm">Success Rate</div>
             </div>
           </motion.div>
