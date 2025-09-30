@@ -7,7 +7,7 @@
  **/
 
 import { cn } from "@/lib/utils";
-import { IconLayoutNavbarCollapse } from "@tabler/icons-react";
+import { Menu } from "lucide-react";
 import { AnimatePresence, motion, useMotionValue, useSpring, useTransform } from "motion/react";
 
 import { useRef, useState } from "react";
@@ -67,7 +67,7 @@ const FloatingDockMobile = ({
       <button
         onClick={() => setOpen(!open)}
         className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-800/50 backdrop-blur-sm border border-gray-700 hover:border-blue-500/50 transition-colors">
-        <IconLayoutNavbarCollapse className="h-5 w-5 text-gray-300" />
+        <Menu className="h-5 w-5 text-gray-300" />
       </button>
     </div>
   );

@@ -335,7 +335,7 @@ function MainLayout({ children }) {
                 lineNumber: 14,
                 columnNumber: 13
             }, this),
-            href: "/problems"
+            href: "/problemset/arrays/3"
         },
         {
             title: "Learn",
