@@ -341,7 +341,7 @@ export default function LandingPage() {
             </Link>
           </div>
           <div>
-            © 2024 RISE. All rights reserved.
+            © 2025 RISE. All rights reserved.
           </div>
         </div>
       </footer>
