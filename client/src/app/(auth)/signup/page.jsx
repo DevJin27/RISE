@@ -27,7 +27,7 @@ export default function SignupPage() {
     setLoading(true);
 
     try {
-      const response = await fetch(`${process.env.NEXT_BACKEND_URL || 'http://localhost:3003'}/api/auth/signup`, {
+      const response = await fetch('https://rise-3rab.onrender.com/api/auth/signup', {
   method: "POST",
         headers: {
           "Content-Type": "application/json",
