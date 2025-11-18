@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -17,6 +17,81 @@ model User {
   name      String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  leetCodeProfile LeetCodeUser?
 
   @@map("users")
+}
+
+model LeetCodeUser {
+  id               String              @id @default(cuid())
+  username         String              @unique
+  realName         String?
+  country          String?
+  school           String?
+  avatarUrl        String?
+  ranking          Int?
+  reputation       Int?
+
+  // Submission Stats
+  totalSolved      Int?
+  totalSubmissions Int?
+  easySolved       Int?
+  mediumSolved     Int?
+  hardSolved       Int?
+
+  lastSyncedAt     DateTime            @default(now())
+
+  // Foreign key to main app user
+  user             User                @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId           String              @unique  // One LeetCodeUser per main User
+
+  // Relations
+  skillStats        LeetCodeSkillStat[]
+  recentSubmissions LeetCodeSubmission[]
+  calendar          LeetCodeCalendar?
+}
+
+model LeetCodeSkillStat {
+  id        String        @id @default(cuid())
+  category  SkillCategory
+  tagName   String
+  tagSlug   String
+  solved    Int
+
+  user      LeetCodeUser  @relation(fields: [leetCodeUserId], references: [id], onDelete: Cascade)
+  leetCodeUserId String
+}
+
+enum SkillCategory {
+  FUNDAMENTAL
+  INTERMEDIATE
+  ADVANCED
+}
+
+model LeetCodeSubmission {
+  id          String        @id @default(cuid())
+  title       String
+  slug        String
+  status      String
+  difficulty  String
+  lang        String
+  timestamp   Int
+  url         String
+  likes       Int?
+  dislikes    Int?
+  isPaidOnly  Boolean?
+
+  user        LeetCodeUser  @relation(fields: [leetCodeUserId], references: [id], onDelete: Cascade)
+  leetCodeUserId  String
+}
+
+model LeetCodeCalendar {
+  id              String        @id @default(cuid())
+  streak          Int?
+  totalActiveDays Int?
+  activeYears     Json?
+  submissionsMap  Json?
+
+  user            LeetCodeUser  @relation(fields: [leetCodeUserId], references: [id], onDelete: Cascade)
+  leetCodeUserId  String @unique
 }

@@ -23,6 +23,7 @@ lerna-debug.log*
 *.sln
 *.sw?
 .env
-;
+.env.local
+.env.*.local
 
 /src/generated/prisma
