@@ -19,7 +19,7 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const response = await fetch("https://rise-3rab.onrender.com/api/auth/login", {
+      const response = await fetch(`${process.env.NEXT_BACKEND_URL || 'http://localhost:3003'}/api/auth/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

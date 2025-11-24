@@ -25,7 +25,7 @@ export default function LeetCodeDemo() {
         </div>
 
         {/* LeetCode Activity Feed */}
-        <LeetCodeActivityFeed username="Shrage" limit={15} showStats={true} />
+        <LeetCodeActivityFeed username="devjindal23" limit={15} showStats={true} />
 
         {/* API Info */}
         <div className="mt-12 border-t-2 border-cyan-400/30 pt-6">
@@ -34,14 +34,14 @@ export default function LeetCodeDemo() {
             <div className="flex items-start gap-3">
               <span className="text-cyan-400">&gt;</span>
               <div>
-                <code className="text-green-400">GET /api/leetcode/activity-feed?username=Shrage&limit=15</code>
+                <code className="text-green-400">GET /api/leetcode/activity-feed?username=devjindal23&limit=15</code>
                 <p className="text-cyan-400/70 mt-1">Fetch enriched submission data</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
               <span className="text-cyan-400">&gt;</span>
               <div>
-                <code className="text-green-400">GET /api/leetcode/profile?username=Shrage</code>
+                <code className="text-green-400">GET /api/leetcode/profile?username=devjindal23</code>
                 <p className="text-cyan-400/70 mt-1">Get user profile statistics</p>
               </div>
             </div>

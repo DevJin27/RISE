@@ -125,3 +125,15 @@ a:hover {
 .animate-gradient {
   animation: gradient 3s ease infinite;
 }
+
+.glass-input {
+  @apply bg-white/5 border border-white/10 px-4 py-3 rounded-xl text-gray-200;
+}
+
+.glass-input::placeholder {
+  @apply text-gray-500;
+}
+
+.btn-blue {
+  @apply px-4 py-2.5 rounded-lg bg-blue-500 text-black font-semibold hover:opacity-90 transition;
+}
