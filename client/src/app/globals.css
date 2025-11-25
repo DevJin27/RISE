@@ -137,3 +137,275 @@ a:hover {
 .btn-blue {
   @apply px-4 py-2.5 rounded-lg bg-blue-500 text-black font-semibold hover:opacity-90 transition;
 }
+.learning-page {
+  display: flex;
+  height: 100vh;
+  background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+.ladder-panel {
+  position: relative;
+  width: 280px;
+  background: transparent;
+  overflow-y: auto;
+  padding: 40px 0;
+  min-height: 100vh;
+}
+
+.ladder-rails {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: auto;
+  min-height: 100%;
+  pointer-events: none;
+}
+
+.rail {
+  position: fixed;
+  width: 12px;
+  top: 40px;
+  bottom: 40px;
+  background: linear-gradient(to bottom, 
+    #8b7355 0%, 
+    #6b5744 50%, 
+    #4a3f35 100%);
+  box-shadow: 
+    inset -2px 0 4px rgba(0,0,0,0.4),
+    inset 2px 0 4px rgba(255,255,255,0.1);
+}
+
+.rail-left {
+  left: 30px;
+}
+
+.rail-right {
+  left: calc(280px - 30px - 12px);
+}
+
+.ladder {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding: 20px 0;
+  z-index: 1;
+  min-height: 100%;
+}
+
+.ladder-step {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  height: 70px;
+}
+
+.rung-left,
+.rung-right {
+  width: 40px;
+  height: 16px;
+  background: linear-gradient(to bottom, 
+    #8b7355 0%, 
+    #6b5744 50%, 
+    #4a3f35 100%);
+  border-radius: 3px;
+  box-shadow: 
+    0 2px 4px rgba(0,0,0,0.3),
+    inset 0 1px 2px rgba(255,255,255,0.2),
+    inset 0 -1px 2px rgba(0,0,0,0.3);
+  position: relative;
+}
+
+.rung-left::before,
+.rung-right::before {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: #3a2f28;
+  border-radius: 50%;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
+}
+
+.rung-left::before {
+  right: 6px;
+}
+
+.rung-right::before {
+  left: 6px;
+}
+
+.rung-center {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 8px 12px;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.ladder-step:hover .rung-center {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+.rung-center.active {
+  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+  border-color: #ffc107;
+  box-shadow: 
+    0 0 20px rgba(255, 215, 0, 0.6),
+    0 0 40px rgba(255, 215, 0, 0.3);
+  transform: scale(1.1);
+}
+
+.rung-center.active .topic-name,
+.rung-center.active .topic-count {
+  color: #1a1a2e;
+  text-shadow: 0 1px 2px rgba(255,255,255,0.5);
+}
+
+.topic-name {
+  font-weight: 600;
+  font-size: 13px;
+  color: #fff;
+  text-align: center;
+  line-height: 1.3;
+}
+
+.topic-count {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 3px;
+}
+
+.content-panel {
+  flex: 1;
+  overflow-y: auto;
+  padding: 40px;
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.topic-section {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.topic-section h2 {
+  margin: 0 0 6px 0;
+  color: #2d3748;
+  font-size: 22px;
+}
+
+.topic-subtitle {
+  color: #718096;
+  margin: 0 0 16px 0;
+  font-size: 13px;
+}
+
+.problem-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.problem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background: #f7fafc;
+  border: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.problem:hover {
+  border-color: #667eea;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.15);
+}
+
+.problem.completed {
+  background: #f0fff4;
+  border-color: #48bb78;
+}
+
+.problem.pending {
+  background: #fffaf0;
+  border-color: #ed8936;
+}
+
+.problem span {
+  font-weight: 500;
+  color: #2d3748;
+  font-size: 14px;
+}
+
+.problem button {
+  padding: 6px 16px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.problem.completed button {
+  background: #48bb78;
+  color: white;
+}
+
+.problem.pending button {
+  background: #ed8936;
+  color: white;
+}
+
+.problem button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.problem-more {
+  padding: 12px 16px;
+  text-align: center;
+  color: #718096;
+  font-style: italic;
+  font-size: 13px;
+  background: #edf2f7;
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
