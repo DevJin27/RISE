@@ -6,7 +6,7 @@ export async function GET() {
       username: "dev",
       realName: "Dev",
       country: "IN",
-      avatarUrl: "/mnt/data/682D144F-923B-4FC6-8C71-65E4192946D4.jpeg",
+      avatarUrl: "",
       ranking: 18432,
       reputation: 1340,
     },

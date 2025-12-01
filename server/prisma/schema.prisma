@@ -11,26 +11,27 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  password  String
-  name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id              String                @id @default(uuid())
+  email           String                @unique
+  password        String
+  name            String?
+  createdAt       DateTime              @default(now())
+  updatedAt       DateTime              @updatedAt
   leetCodeProfile LeetCodeUser?
+  problemProgress UserProblemProgress[]
 
   @@map("users")
 }
 
 model LeetCodeUser {
-  id               String              @id @default(cuid())
-  username         String              @unique
-  realName         String?
-  country          String?
-  school           String?
-  avatarUrl        String?
-  ranking          Int?
-  reputation       Int?
+  id         String  @id @default(cuid())
+  username   String  @unique
+  realName   String?
+  country    String?
+  school     String?
+  avatarUrl  String?
+  ranking    Int?
+  reputation Int?
 
   // Submission Stats
   totalSolved      Int?
@@ -39,26 +40,25 @@ model LeetCodeUser {
   mediumSolved     Int?
   hardSolved       Int?
 
-  lastSyncedAt     DateTime            @default(now())
+  lastSyncedAt DateTime @default(now())
 
   // Foreign key to main app user
-  user             User                @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId           String              @unique  // One LeetCodeUser per main User
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @unique // One LeetCodeUser per main User
 
   // Relations
-  skillStats        LeetCodeSkillStat[]
-  recentSubmissions LeetCodeSubmission[]
-  calendar          LeetCodeCalendar?
+  skillStats LeetCodeSkillStat[]
+  calendar   LeetCodeCalendar?
 }
 
 model LeetCodeSkillStat {
-  id        String        @id @default(cuid())
-  category  SkillCategory
-  tagName   String
-  tagSlug   String
-  solved    Int
+  id       String        @id @default(cuid())
+  category SkillCategory
+  tagName  String
+  tagSlug  String
+  solved   Int
 
-  user      LeetCodeUser  @relation(fields: [leetCodeUserId], references: [id], onDelete: Cascade)
+  user           LeetCodeUser @relation(fields: [leetCodeUserId], references: [id], onDelete: Cascade)
   leetCodeUserId String
 }
 
@@ -68,30 +68,42 @@ enum SkillCategory {
   ADVANCED
 }
 
-model LeetCodeSubmission {
-  id          String        @id @default(cuid())
-  title       String
-  slug        String
-  status      String
-  difficulty  String
-  lang        String
-  timestamp   Int
-  url         String
-  likes       Int?
-  dislikes    Int?
-  isPaidOnly  Boolean?
-
-  user        LeetCodeUser  @relation(fields: [leetCodeUserId], references: [id], onDelete: Cascade)
-  leetCodeUserId  String
-}
-
 model LeetCodeCalendar {
-  id              String        @id @default(cuid())
+  id              String @id @default(cuid())
   streak          Int?
   totalActiveDays Int?
   activeYears     Json?
   submissionsMap  Json?
 
-  user            LeetCodeUser  @relation(fields: [leetCodeUserId], references: [id], onDelete: Cascade)
-  leetCodeUserId  String @unique
+  user           LeetCodeUser @relation(fields: [leetCodeUserId], references: [id], onDelete: Cascade)
+  leetCodeUserId String       @unique
+}
+
+model Problem {
+  id         String @id // your slug: "two-sum", "group-anagrams"
+  name       String
+  topic      String
+  difficulty String
+  idx        Int
+
+  createdAt DateTime @default(now())
+
+  progress UserProblemProgress[]
+
+  @@map("problems")
+}
+
+model UserProblemProgress {
+  id String @id @default(cuid())
+
+  userId    String
+  problemId String
+
+  solved   Boolean   @default(false)
+  solvedAt DateTime?
+
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  problem Problem @relation(fields: [problemId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, problemId])
 }

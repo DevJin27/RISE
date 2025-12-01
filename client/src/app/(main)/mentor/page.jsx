@@ -151,7 +151,7 @@ export default function AIMentor() {
         </div>
 
         {/* Input Area */}
-        <div className="p-6 border-t border-white/10 bg-white/5 backdrop-blur-xl flex-shrink-0 mb-30">
+        <div className="p-6 border-t border-white/10 bg-white/5 backdrop-blur-xl flex-shrink-0 mb-0">
           <div className="max-w-5xl mx-auto">
             <div className="relative bg-white/5 backdrop-blur-xl rounded-xl border border-white/10 overflow-hidden">
               <input
