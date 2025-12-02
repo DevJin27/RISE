@@ -1,7 +1,4 @@
-// controllers/task.controller.js
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import prisma from "../db/prisma.js";
 
 // READ — list tasks for the logged-in user
 export const listTasks = async (req, res) => {
