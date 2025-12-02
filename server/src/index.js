@@ -18,12 +18,26 @@ dotenv.config();
 const app = express();
 
 // CORS configuration
+const allowedOrigins = [
+  "http://localhost:3000",
+  "https://rise-dsa.vercel.app"
+];
+
 const corsOptions = {
-  origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+  origin: function (origin, callback) {
+    if (!origin) return callback(null, true);
+
+    if (allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
+  allowedHeaders: ["Content-Type", "Authorization"]
 };
+
 
 app.use(cors(corsOptions));
 app.use(express.json({ limit: '1mb' }));
