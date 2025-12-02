@@ -1,6 +1,8 @@
 "use client"
 import { FloatingDock } from "./page";
 import { Home, FileCode, Waypoints, Sparkles, User } from "lucide-react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function MainLayout({ children }) {
   const navItems = [
@@ -14,7 +16,18 @@ export default function MainLayout({ children }) {
   return (
     <div className="min-h-screen bg-[#0a0a0a] text-white">
       {children}
-      
+      {/* <ToastContainer
+        position="bottom-right"
+        theme="dark"
+        autoClose={4000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      /> */}
+
       {/* Floating Dock - appears on all pages in (main) - now hideable! */}
       <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50">
         <FloatingDock items={navItems} />

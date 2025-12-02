@@ -10,10 +10,12 @@ export default function SignupPage() {
     name: "",
     email: "",
     password: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    leetcodeUsername: "",
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const API = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3003';
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,10 +26,15 @@ export default function SignupPage() {
       return;
     }
 
+    if (!formData.leetcodeUsername.trim()) {
+      setError("LeetCode username is required.");
+      return;
+    }
+
     setLoading(true);
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:3003'}/api/auth/signup`, {
+      const response = await fetch(`${API}/api/auth/signup`, {
   method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -37,6 +44,7 @@ export default function SignupPage() {
           name: formData.name,
           email: formData.email,
           password: formData.password,
+          leetcodeUsername: formData.leetcodeUsername?.trim() || undefined,
         }),
       });
 
@@ -52,6 +60,15 @@ export default function SignupPage() {
       }
 
       // Redirect to home on success
+      const syncRes = await fetch(`${API}/api/leetcode/users/${formData.leetcodeUsername}/initial-sync`, {
+  method: "POST",
+  credentials: "include",
+});
+
+if (!syncRes.ok) {
+  console.warn("Initial sync failed.", await syncRes.json());
+}
+
       router.push("/home");
     } catch (err) {
       setError(err.message || "Something went wrong. Please try again.");
@@ -125,6 +142,22 @@ export default function SignupPage() {
               </div>
             )}
             
+            <div>
+              <label htmlFor="leetcodeUsername" className="block text-sm font-medium text-gray-300 mb-2">
+                LeetCode Username
+              </label>
+              <input
+                type="text"
+                id="leetcodeUsername"
+                name="leetcodeUsername"
+                value={formData.leetcodeUsername}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-white placeholder-gray-500"
+                placeholder="dev_username"
+              />
+            </div>
+
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
                 Full Name
@@ -214,6 +247,7 @@ export default function SignupPage() {
               className="w-full bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white py-3 rounded-lg font-medium transition-all shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 disabled:opacity-50 disabled:cursor-not-allowed"
               whileHover={{ scale: loading ? 1 : 1.02 }}
               whileTap={{ scale: loading ? 1 : 0.98 }}
+              // onClick={handleSubmit}
             >
               {loading ? "Creating Account..." : "Create Account"}
             </motion.button>

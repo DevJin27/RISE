@@ -3,7 +3,15 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth.routes.js';
 import leetcodeRoutes from './routes/leetcode.routes.js';
+import taskRoutes from './routes/task.routes.js';
 import errorHandler from './middleware/errorHandler.js';
+import cookieParser from "cookie-parser";
+import progressRoutes from "./routes/progress.routes.js";
+import problemRoutes from "./routes/problem.routes.js";
+import mentorRoutes from "./routes/mentor.routes.js";
+
+
+
 
 dotenv.config();
 
@@ -18,7 +26,9 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.use(express.json());
+app.use(express.json({ limit: '1mb' }));
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // Logging only in dev
 if (process.env.NODE_ENV === 'development') {
@@ -34,6 +44,10 @@ app.get('/', (req, res) => {
 // ROUTES (must come BEFORE error handler)
 app.use('/api/auth', authRoutes);
 app.use('/api/leetcode', leetcodeRoutes);
+app.use('/api/tasks', taskRoutes);
+app.use("/api/progress", progressRoutes);
+app.use("/api/problems", problemRoutes);
+app.use("/api/mentor", mentorRoutes);
 
 // GLOBAL ERROR HANDLER (ALWAYS LAST)
 app.use(errorHandler);
